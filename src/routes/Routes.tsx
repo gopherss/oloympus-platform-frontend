@@ -14,7 +14,7 @@ import SocialNetworksPage from '../components/pages/SocialNetworksPage';
 
 const AppRoutes: React.FC = () => {
   return (
-    <Router>
+    <Router basename='/oloympus-platform-frontend/'>
       <Navbar/>
       <Routes>
         {/* Page routes */}

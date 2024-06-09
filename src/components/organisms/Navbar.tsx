@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom'
 
 
 const navigation = [
-    { name: 'Home', href: '/', current: false },
     { name: 'Groups', href: '/groups', current: false },
     { name: 'Members', href: '/members', current: false },
     { name: 'Social Networks', href: '/social-networks', current: false },
