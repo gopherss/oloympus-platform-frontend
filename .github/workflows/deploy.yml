@@ -20,6 +20,7 @@ concurrency:
   group: 'pages'
   cancel-in-progress: true
 
+
 jobs:
   # Trabajo de implementación único ya que solo estamos implementando
   deploy:
