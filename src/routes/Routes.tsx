@@ -30,7 +30,6 @@ const AppRoutes: React.FC = () => {
         <Route path='/register' element={<RegisterPage/>} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/" element={<HomePage />} />
       </Routes>
     </Router>
   );
