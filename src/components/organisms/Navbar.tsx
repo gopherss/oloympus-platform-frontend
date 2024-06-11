@@ -37,7 +37,7 @@ export default function Example() {
                                     {open ? (
                                         <img src="https://www.svgrepo.com/show/286790/cross-close.svg" alt="" className="block h-6 w-6" />
                                     ) : (
-                                        <img src="https://www.svgrepo.com/show/475195/hamburger.svg" alt="" className="block h-6 w-6" />
+                                        <img src="https://www.svgrepo.com/show/427126/menu-2.svg" alt="" className="block h-6 w-6" />
                                     )}
                                 </DisclosureButton>
                             </div>
