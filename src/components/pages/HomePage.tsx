@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Footer from '../organisms/Footer';
+import logo from '../../assets/logo_olympus.png';
 
 // Datos de las imágenes para el carousel
 const carouselImages = [
@@ -123,7 +124,7 @@ const HomePage: React.FC = () => {
           <div className="flex justify-center items-center h-auto ">
             <div className="relative">
               <img
-                src="src\assets\logo_olympus.png"
+                src={logo}
                 alt="Imagen animada"
                 className="w-48 h-48 object-contain animate-float"
               />

@@ -7,6 +7,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Span from '../atoms/Span';
+import logo from '../../assets/logo_olympus.png';
+
 
 interface InterfaceLogin {
   email: string;
@@ -44,7 +46,7 @@ const LoginPage: React.FC = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-11 w-auto"
-            src="src\assets\logo-olympus.png"
+            src={logo}
             alt="Your Company"
           />
           <TitlleForm>Iniciar sesión en su cuenta</TitlleForm>

@@ -9,7 +9,7 @@ import {
     Transition,
 } from '@headlessui/react'
 import { Link } from 'react-router-dom'
-
+import logo from '../../assets/logo_olympus.png';
 
 const navigation = [
     { name: 'Contacto', href: '/contact', current: false },
@@ -46,7 +46,7 @@ export default function Example() {
                                         to={"/"}>
                                         <img
                                             className="h-8 w-auto"
-                                            src="src\assets\logo-olympus.png"
+                                            src={logo}
                                             alt="logo olympus"
                                             title='Logo Olympus'
                                         />
