@@ -1,0 +1,17 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:gold;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:orange;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="512" cy="512" r="200" fill="url(#grad1)" stroke="black" stroke-width="5" />
+  <g stroke="black" stroke-width="5">
+    <path d="M512,112 L512,0 M512,912 L512,1024 M912,512 L1024,512 M112,512 L0,512 M781.25,781.25 L896,896 M128,128 L243.75,243.75 M781.25,243.75 L896,128 M128,896 L243.75,781.25" />
+    <path d="M512,150 Q612,200 512,250 Q412,200 512,150 M512,774 Q612,824 512,874 Q412,824 512,774 M774,512 Q824,612 874,512 Q824,412 774,512 M250,512 Q200,612 150,512 Q200,412 250,512 M719,719 Q769,769 719,819 Q669,769 719,719 M305,305 Q355,355 305,405 Q255,355 305,305 M719,305 Q769,355 719,405 Q669,355 719,305 M305,719 Q355,769 305,819 Q255,769 305,719" fill="none" />
+  </g>
+  <circle cx="512" cy="512" r="60" fill="black" />
+  <circle cx="482" cy="492" r="12" fill="white" />
+  <circle cx="542" cy="492" r="12" fill="white" />
+  <ellipse cx="512" cy="532" rx="20" ry="12" fill="white" />
+</svg>

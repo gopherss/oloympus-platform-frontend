@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from '../components/pages/HomePage';
-import AboutPage from '../components/pages/AboutPage';
+import OptionsPage from '../components/pages/OptionsPage';
 import NotFoundPage from '../components/pages/NotFoundPage';
 import LoginPage from '../components/pages/LoginPage';
 import Navbar from '../components/organisms/Navbar';
@@ -9,8 +9,9 @@ import RegisterPage from '../components/pages/RegisterPage';
 import ProfilePage from '../components/pages/ProfilePage';
 import SettingsPage from '../components/pages/SettingsPage';
 import GroupsPage from '../components/pages/GroupsPage';
-import MembersPage from '../components/pages/MembersPage';
-import SocialNetworksPage from '../components/pages/SocialNetworksPage';
+import ContactPage from '../components/pages/ContactPage';
+import PlansPage from '../components/pages/PlansPage';
+import RecoverPage from '../components/pages/RecoverPage';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -20,9 +21,10 @@ const AppRoutes: React.FC = () => {
         {/* Page routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/groups" element={<GroupsPage />} />
-        <Route path="/members" element={<MembersPage />} />
-        <Route path="/social-networks" element={<SocialNetworksPage />} />
-        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/plans" element={<PlansPage />} />
+        <Route path="/options" element={<OptionsPage />} />
+        <Route path="/recover" element={<RecoverPage />} />
         <Route path="*" element={<NotFoundPage />} />
         
         {/* User routes */}

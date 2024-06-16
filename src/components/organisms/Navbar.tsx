@@ -12,10 +12,9 @@ import { Link } from 'react-router-dom'
 
 
 const navigation = [
-    { name: 'Groups', href: '/groups', current: false },
-    { name: 'Members', href: '/members', current: false },
-    { name: 'Social Networks', href: '/social-networks', current: false },
-    { name: 'About', href: '/about', current: false },
+    { name: 'Contacto', href: '/contact', current: false },
+    { name: 'Planes', href: '/plans', current: false },
+    { name: 'Opciones', href: '/options', current: false },
 ]
 
 function classNames(...classes: string[]) {
@@ -35,9 +34,9 @@ export default function Example() {
                                     <span className="absolute -inset-0.5" />
                                     <span className="sr-only">Open main menu</span>
                                     {open ? (
-                                        <img src="https://www.svgrepo.com/show/286790/cross-close.svg" alt="" className="block h-6 w-6" />
+                                        <img src="https://www.svgrepo.com/show/286790/cross-close.svg" alt="Close Icon" className="block h-6 w-6" />
                                     ) : (
-                                        <img src="https://www.svgrepo.com/show/427126/menu-2.svg" alt="" className="block h-6 w-6" />
+                                        <img src="https://www.svgrepo.com/show/427126/menu-2.svg" alt="Menu Icon" className="block h-6 w-6" />
                                     )}
                                 </DisclosureButton>
                             </div>
@@ -47,7 +46,7 @@ export default function Example() {
                                         to={"/"}>
                                         <img
                                             className="h-8 w-auto"
-                                            src="https://www.svgrepo.com/show/486355/coffee.svg"
+                                            src="src\assets\logo-olympus.png"
                                             alt="logo olympus"
                                             title='Logo Olympus'
                                         />
