@@ -1,23 +1,19 @@
-import React from 'react';
-import { TitlleForm, Label, Input, Button } from '../atoms/index';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { TitlleForm, Label, Input, Button, Span } from '../atoms/index';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 // validación de codigo 
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import Span from '../atoms/Span';
+import { buttons } from '../../types/buttonsLogin';
+import { InterfaceRegister, SPECIALCHARACTERSREGEX } from '../../types';
 
-
-interface InterfaceRegister {
-    email: string;
-    fullName: string;
-    username: string;
-    password: string;
-}
-
-const specialCharactersRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+// Firebase Auth
+import { getRedirectResult, signInWithRedirect } from 'firebase/auth';
+import Cookies from 'js-cookie';
+import { auth } from '../../utils/firebaseConfig';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -29,17 +25,18 @@ const validationSchema = Yup.object().shape({
     username: Yup.string()
         .min(3, 'Se requiere tener un minimo de 3 letras')
         .required('Se requiere nombre de usuario'),
-        password: Yup.string()
+    password: Yup.string()
         .required('se requiere contraseña')
         .min(8, 'La contraseña debe tener al menos 8 caracteres')
         .matches(/[a-z]/, 'La contraseña debe contener al menos una letra minúscula')
         .matches(/[A-Z]/, 'La contraseña debe contener al menos una letra mayúscula')
         .matches(/[0-9]/, 'La contraseña debe contener al menos un número')
-        .matches(specialCharactersRegex, 'La contraseña debe contener al menos un carácter especial')
+        .matches(SPECIALCHARACTERSREGEX, 'La contraseña debe contener al menos un carácter especial')
 });
 
 
 const RegisterPage: React.FC = () => {
+    const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm<InterfaceRegister>({
         resolver: yupResolver(validationSchema)
@@ -50,6 +47,40 @@ const RegisterPage: React.FC = () => {
     };
 
 
+    useEffect(() => {
+        const handleRedirectResult = async () => {
+          try {
+            const result = await getRedirectResult(auth);
+    
+            if (result) {
+              const user = result.user;
+              const inforUser = {
+                name: user.displayName,
+                email: user.email,
+                phone: user.phoneNumber,
+                photo: user.photoURL,
+                verified: user.emailVerified,
+              }
+    
+              const token = await user.getIdToken();
+              Cookies.set('userToken', token, { expires: 7 });
+              console.log('Login Success', inforUser);
+    
+              navigate('/profile');
+            }
+    
+          } catch (error) {
+            console.error('Error during login: ', error);
+          }
+        };
+        handleRedirectResult();
+      }, [])
+    
+      const handleLogin = (provider: any) => {
+        signInWithRedirect(auth, provider);
+      };
+
+
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -57,39 +88,23 @@ const RegisterPage: React.FC = () => {
                     <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                         <TitlleForm>Inscribirse en Olympus</TitlleForm>
                         <div className="mt-6 flex flex-col space-y-4">
-                            <button
-                                type="button"
-                                className="w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                <img
-                                    className="h-5 w-5 mr-2"
-                                    src="https://www.svgrepo.com/show/448227/google.svg"
-                                    alt="Google icon"
-                                />
-                                Registrarte con Google
-                            </button>
-                            <button
-                                type="button"
-                                className="w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                <img
-                                    className="h-5 w-5 mr-2"
-                                    src="https://www.svgrepo.com/show/132023/microsoft.svg"
-                                    alt="Microsoft icon"
-                                />
-                                Registrarte con Microsoft
-                            </button>
-                            <button
-                                type="button"
-                                className="w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                <img
-                                    className="h-5 w-5 mr-2"
-                                    src="https://www.svgrepo.com/show/489934/facebook.svg"
-                                    alt="Microsoft icon"
-                                />
-                                Registrarte con Facebook
-                            </button>
+                            {
+                                buttons.map((button, index) => (
+                                    <button
+                                        key={index}
+                                        type='button'
+                                        onClick={() => handleLogin(button.provider)}
+                                        className='w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                    >
+                                        <img
+                                            className="h-5 w-5 mr-2"
+                                            src={button.src}
+                                            alt={button.alt}
+                                        />
+                                        Registrarte con {button.label}
+                                    </button>
+                                ))
+                            }
                         </div>
 
                         <div className="relative my-6">

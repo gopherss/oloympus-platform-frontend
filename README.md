@@ -77,14 +77,22 @@ La estructura de carpetas y archivos es la siguiente:
     │   vite-env.d.ts
     │
     ├───assets
+    │       logo-olympus.png
+    │       logo_olympus.png
+    │       ol-icon.svg
     │       react.svg
     │
     ├───components
     │   ├───atoms
     │   │       Button.tsx
+    │   │       index.ts
     │   │       Input.tsx
+    │   │       Label.tsx
+    │   │       Span.tsx
+    │   │       TitleForm.tsx
     │   │
     │   ├───molecules
+    │   │       ImageCarousel.tsx
     │   │       SearchBar.tsx
     │   │
     │   ├───organisms
@@ -93,16 +101,17 @@ La estructura de carpetas y archivos es la siguiente:
     │   │       Navbar.tsx
     │   │
     │   ├───pages
-    │   │       AboutPage.tsx
+    │   │       ContactPage.tsx
     │   │       GroupsPage.tsx
     │   │       HomePage.tsx
     │   │       LoginPage.tsx
-    │   │       MembersPage.tsx
     │   │       NotFoundPage.tsx
+    │   │       OptionsPage.tsx
+    │   │       PlansPage.tsx
     │   │       ProfilePage.tsx
+    │   │       RecoverPage.tsx
     │   │       RegisterPage.tsx
     │   │       SettingsPage.tsx
-    │   │       SocialNetworksPage.tsx
     │   │
     │   └───templates
     │           MainTemplate.tsx
@@ -123,9 +132,12 @@ La estructura de carpetas y archivos es la siguiente:
     │       globals.css
     │
     ├───types
+    │       auth.ts
+    │       buttonsLogin.ts
+    │       constants.ts
     │       index.ts
     │
     └───utils
-            helpers.ts
+            firebaseConfig.ts
 ```
 

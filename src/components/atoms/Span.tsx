@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Props extends React.HTMLAttributes<HTMLSpanElement> { }
 
-const Span = ({ children, ...props }: Props) => {
+export function Span({ children, ...props }: Props) {
     return (
         <span
             className="block text-sm text-red-600"

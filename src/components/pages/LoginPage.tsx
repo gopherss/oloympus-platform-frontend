@@ -1,21 +1,21 @@
-import React from 'react';
-import { Label, Input, Button, TitlleForm } from '../atoms/index'
+import React, { useEffect } from 'react';
+import { Label, Input, Button, TitlleForm, Span } from '../atoms/index'
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // validación de codigo 
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import Span from '../atoms/Span';
 import logo from '../../assets/logo_olympus.png';
+import { InterfaceLogin, SPECIALCHARACTERSREGEX } from '../../types';
 
+// Firebase Auth
+import { getRedirectResult, signInWithRedirect } from 'firebase/auth';
+import { auth } from '../../utils/firebaseConfig';
+import Cookies from 'js-cookie';
+import { buttons } from '../../types/buttonsLogin';
 
-interface InterfaceLogin {
-  email: string;
-  password: string;
-}
-
-const specialCharactersRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -27,10 +27,12 @@ const validationSchema = Yup.object().shape({
     .matches(/[a-z]/, 'La contraseña debe contener al menos una letra minúscula')
     .matches(/[A-Z]/, 'La contraseña debe contener al menos una letra mayúscula')
     .matches(/[0-9]/, 'La contraseña debe contener al menos un número')
-    .matches(specialCharactersRegex, 'La contraseña debe contener al menos un carácter especial')
+    .matches(SPECIALCHARACTERSREGEX, 'La contraseña debe contener al menos un carácter especial')
 });
 
+
 const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors } } = useForm<InterfaceLogin>({
     resolver: yupResolver(validationSchema)
@@ -40,12 +42,47 @@ const LoginPage: React.FC = () => {
     console.log(data);
   };
 
+  useEffect(() => {
+    const handleRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+
+        if (result) {
+          const user = result.user;
+          const inforUser = {
+            name: user.displayName,
+            email: user.email,
+            phone: user.phoneNumber,
+            photo: user.photoURL,
+            verified: user.emailVerified,
+          }
+
+          const token = await user.getIdToken();
+          Cookies.set('userToken', token, { expires: 7 });
+          console.log('Login Success', inforUser);
+
+          navigate('/profile');
+        }
+
+      } catch (error) {
+        console.error('Error during login: ', error);
+      }
+    };
+    handleRedirectResult();
+  }, [])
+
+  const handleLogin = (provider: any) => {
+    signInWithRedirect(auth, provider);
+  };
+
+
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            className="mx-auto h-11 w-auto"
+            className="mx-auto w-48 h-48 object-contain animate-float"
             src={logo}
             alt="Your Company"
           />
@@ -87,44 +124,28 @@ const LoginPage: React.FC = () => {
             </Link>
           </p>
 
+          {/* Buttons Login */}
           <div className="mt-6 flex flex-col space-y-4">
             <p className="text-center text-sm text-gray-500">O continuar con</p>
-            <div className="flex flex-col sm:flex-row sm:space-x-4">
-              <button
-                type="button"
-                className="flex justify-center items-center w-full sm:w-auto rounded-md bg-gray-100 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-              >
-                <img
-                  className="w-6 h-6 mr-2"
-                  src="https://www.svgrepo.com/show/448227/google.svg"
-                  alt="Google Logo"
-                />
-                Google
-              </button>
-              <button
-                type="button"
-                className="flex justify-center items-center w-full sm:w-auto rounded-md bg-gray-100 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-              >
-                <img
-                  className="w-6 h-6 mr-2"
-                  src="https://www.svgrepo.com/show/132023/microsoft.svg"
-                  alt="Microsoft Logo"
-                />
-                Microsoft
-              </button>
-              <button
-                type="button"
-                className="flex justify-center items-center w-full sm:w-auto rounded-md bg-gray-100 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-              >
-                <img
-                  className="w-6 h-6 mr-2"
-                  src="https://www.svgrepo.com/show/489934/facebook.svg"
-                  alt="Facebook Logo"
-                />
-                Facebook
-              </button>
+            <div className="flex flex-wrap justify-center sm:justify-start">
+              {buttons.map((button, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => handleLogin(button.provider)}
+                  className="flex justify-center items-center w-full sm:w-auto rounded-md bg-gray-100 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 mb-2 sm:mb-0"
+                >
+                  <img
+                    className="w-6 h-6 mr-2"
+                    src={button.src}
+                    alt={button.alt}
+                  />
+                  {button.label}
+                </button>
+              ))}
             </div>
           </div>
+
 
         </div>
       </div>

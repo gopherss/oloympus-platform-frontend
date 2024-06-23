@@ -1,20 +1,16 @@
 import React from 'react'
-
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { Button, Input, Label, TitlleForm } from '../atoms';
-import Span from '../atoms/Span';
+import { Button, Input, Label, TitlleForm, Span } from '../atoms';
 import { Link } from 'react-router-dom';
+import { InterfaceRecover } from '../../types';
 
-interface InterfaceRecover {
-    email: string;
-}
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
-    .email('dirección de correo electrónico no válida')
-    .required('correo electronico es requerido'),
+        .email('dirección de correo electrónico no válida')
+        .required('correo electronico es requerido'),
 });
 
 const RecoverPage: React.FC = () => {
