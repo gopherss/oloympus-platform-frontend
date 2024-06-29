@@ -1,0 +1,26 @@
+página web olympus
+
+Total de pantallas
+
+-> Primer Sprint
+1 Bienvenida
+2 Inicio de sesión
+3 Registro de usuarios.
+4 Olvidé mi contraseña.
+
+-> Otros Sprint
+5 Contactos.
+6 Grupos.
+7 Opciones
+8 Planes
+9 Perfil
+10 Configuraciones
+
+
+Tecnologías Web
+ReactJS
+TailwindCSS
+Firebase
+
+Atomic Design Architecture
+

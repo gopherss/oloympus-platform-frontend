@@ -7,12 +7,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { buttons } from '../../types/buttonsLogin';
-import { InterfaceRegister, SPECIALCHARACTERSREGEX } from '../../types';
+import { InterfaceRegister, SPECIALCHARACTERSREGEX, SOCIALMEDIABUTTONS } from '../../types';
 
 // Firebase Auth
 import { getRedirectResult, signInWithRedirect } from 'firebase/auth';
-import Cookies from 'js-cookie';
 import { auth } from '../../utils/firebaseConfig';
 
 const validationSchema = Yup.object().shape({
@@ -53,19 +51,26 @@ const RegisterPage: React.FC = () => {
             const result = await getRedirectResult(auth);
     
             if (result) {
-              const user = result.user;
-              const inforUser = {
-                name: user.displayName,
-                email: user.email,
-                phone: user.phoneNumber,
-                photo: user.photoURL,
-                verified: user.emailVerified,
-              }
-    
-              const token = await user.getIdToken();
-              Cookies.set('userToken', token, { expires: 7 });
-              console.log('Login Success', inforUser);
-    
+                const { displayName, email, phoneNumber, photoURL, emailVerified, getIdToken } = result.user;
+                const inforUser = {
+                  name: displayName,
+                  email: email,
+                  phone: phoneNumber,
+                  photo: photoURL,
+                  verified: emailVerified,
+                }
+      
+                const token = await getIdToken();
+                localStorage.setItem('userToken', token);
+      
+                const tokenStorage = localStorage.getItem('userToken')
+      
+                const authenticatedUser = {
+                  ...inforUser,
+                  tokenStorage
+                }
+      
+                console.log(authenticatedUser);
               navigate('/profile');
             }
     
@@ -85,16 +90,16 @@ const RegisterPage: React.FC = () => {
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                    <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10">
                         <TitlleForm>Inscribirse en Olympus</TitlleForm>
                         <div className="mt-6 flex flex-col space-y-4">
                             {
-                                buttons.map((button, index) => (
+                                SOCIALMEDIABUTTONS.map((button, index) => (
                                     <button
                                         key={index}
                                         type='button'
                                         onClick={() => handleLogin(button.provider)}
-                                        className='w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                        className='w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-indigo-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                                     >
                                         <img
                                             className="h-5 w-5 mr-2"
@@ -157,7 +162,7 @@ const RegisterPage: React.FC = () => {
                         <div className="mt-6 text-center">
                             <p className="text-sm text-gray-600">
                                 ¿Tienes una cuenta?{' '}
-                                <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                <Link to="/login" className="font-medium text-blue-500 hover:text-indigo-500">
                                     Acceso
                                 </Link>
                             </p>

@@ -1,17 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from '../components/pages/HomePage';
-import OptionsPage from '../components/pages/OptionsPage';
-import NotFoundPage from '../components/pages/NotFoundPage';
-import LoginPage from '../components/pages/LoginPage';
 import Navbar from '../components/organisms/Navbar';
-import RegisterPage from '../components/pages/RegisterPage';
-import ProfilePage from '../components/pages/ProfilePage';
-import SettingsPage from '../components/pages/SettingsPage';
-import GroupsPage from '../components/pages/GroupsPage';
-import ContactPage from '../components/pages/ContactPage';
+import HomePage from '../components/pages/HomePage';
+import LoginPage from '../components/pages/LoginPage';
 import PlansPage from '../components/pages/PlansPage';
+import GroupsPage from '../components/pages/GroupsPage';
 import RecoverPage from '../components/pages/RecoverPage';
+import ProfilePage from '../components/pages/ProfilePage';
+import OptionsPage from '../components/pages/OptionsPage';
+import ContactPage from '../components/pages/ContactPage';
+import NotFoundPage from '../components/pages/NotFoundPage';
+import SettingsPage from '../components/pages/SettingsPage';
+import RegisterPage from '../components/pages/RegisterPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const AppRoutes: React.FC = () => {
   return (

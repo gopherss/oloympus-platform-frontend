@@ -10,12 +10,9 @@ import {
 } from '@headlessui/react'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/logo_olympus.png';
+import { MENUITEMS, NAVIGATION } from '../../types';
 
-const navigation = [
-    { name: 'Contacto', href: '/contact', current: false },
-    { name: 'Planes', href: '/plans', current: false },
-    { name: 'Opciones', href: '/options', current: false },
-]
+
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -54,7 +51,7 @@ export default function Example() {
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
                                     <div className="flex space-x-4">
-                                        {navigation.map((item) => (
+                                        {NAVIGATION.map((item) => (
                                             <Link
                                                 key={item.name}
                                                 to={item.href}
@@ -101,57 +98,20 @@ export default function Example() {
                                         leaveFrom="transform opacity-100 scale-100"
                                         leaveTo="transform opacity-0 scale-95"
                                     >
-                                        <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                            <MenuItem>
-                                                {({ focus }) => (
-                                                    <Link
-                                                        to="/login"
-                                                        className={classNames(focus ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                    >
-                                                        Login
-                                                    </Link>
-                                                )}
-                                            </MenuItem>
-                                            <MenuItem>
-                                                {({ focus }) => (
-                                                    <Link
-                                                        to="/register"
-                                                        className={classNames(focus ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                    >
-                                                        Register
-                                                    </Link>
-                                                )}
-                                            </MenuItem>
-                                            <MenuItem>
-                                                {({ focus }) => (
-                                                    <Link
-                                                        to="/profile"
-                                                        className={classNames(focus ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                    >
-                                                        Profile
-                                                    </Link>
-                                                )}
-                                            </MenuItem>
-                                            <MenuItem>
-                                                {({ focus }) => (
-                                                    <Link
-                                                        to="/settings"
-                                                        className={classNames(focus ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                    >
-                                                        Settings
-                                                    </Link>
-                                                )}
-                                            </MenuItem>
-                                            <MenuItem>
-                                                {({ focus }) => (
-                                                    <Link
-                                                        to="/"
-                                                        className={classNames(focus ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                    >
-                                                        Sign out
-                                                    </Link>
-                                                )}
-                                            </MenuItem>
+                                        <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                            {MENUITEMS.map((item, index) => (
+                                                <MenuItem key={index}>
+                                                    {({ focus }) => (
+                                                        <Link
+                                                            to={item.path}
+                                                            className={classNames(focus ? 'bg-gray-700' : '', 'flex items-center px-4 py-2 text-sm text-gray-300')}
+                                                        >
+                                                            <img src={item.icon} alt={`icono ${item.label}`} className="h-5 mr-2" />
+                                                            {item.label}
+                                                        </Link>
+                                                    )}
+                                                </MenuItem>
+                                            ))}
                                         </MenuItems>
                                     </Transition>
                                 </Menu>
@@ -161,7 +121,7 @@ export default function Example() {
 
                     <DisclosurePanel className="sm:hidden">
                         <div className="space-y-1 px-2 pb-3 pt-2">
-                            {navigation.map((item) => (
+                            {NAVIGATION.map((item) => (
                                 <Link
                                     key={item.name}
                                     to={item.href}

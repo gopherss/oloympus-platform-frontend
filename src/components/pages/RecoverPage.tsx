@@ -20,16 +20,21 @@ const RecoverPage: React.FC = () => {
     });
 
     const onSubmit: SubmitHandler<InterfaceRecover> = (data: InterfaceRecover) => {
-        console.log(data);
-        // Aquí puedes agregar la lógica para enviar el correo de recuperación
+        localStorage.setItem('email', JSON.stringify(data))
+        const item = localStorage.getItem('email');
+        let email: InterfaceRecover;
+
+        email = item !== null ? JSON.parse(item) : null;
+
+        console.log(email);
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100">
-            <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+        <div className="flex min-h-screen items-center justify-center">
+            <div className="w-full max-w-md p-8 space-y-8 rounded-lg shadow-md">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <TitlleForm>Recupera tu contraseña</TitlleForm>
-                    <p className="mt-2 text-center text-sm text-gray-600">
+                    <p className="mt-2 text-center text-sm text-white">
                         Ingrese su correo electrónico para recibir
                         instrucciones y restablecer su contraseña
                     </p>
@@ -48,7 +53,7 @@ const RecoverPage: React.FC = () => {
                     <div className="flex justify-center mt-4">
                         <Link
                             to="/login"
-                            className="flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                            className="flex items-center text-sm font-medium text-blue-500 hover:text-indigo-500"
                         >
                             <img src="https://www.svgrepo.com/show/418142/arrow-left-3.svg" alt="Back" className="w-4 h-4 mr-2" />
                             Atras

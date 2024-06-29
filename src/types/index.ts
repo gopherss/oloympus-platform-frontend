@@ -1,3 +1,3 @@
-export * from './auth';
+export * from './authInterfaces';
 export * from './constants';
-export * from './buttonsLogin';
+export * from './buttonsPage';
