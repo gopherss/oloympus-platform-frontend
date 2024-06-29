@@ -8,12 +8,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import logo from '../../assets/logo_olympus.png';
-import { InterfaceLogin, SPECIALCHARACTERSREGEX } from '../../types';
+import { InterfaceLogin, SPECIALCHARACTERSREGEX, SOCIALMEDIABUTTONS } from '../../types';
 
 // Firebase Auth
 import { getRedirectResult, signInWithRedirect } from 'firebase/auth';
 import { auth } from '../../utils/firebaseConfig';
-import { SOCIALMEDIABUTTONS } from '../../types/index';
 
 
 const validationSchema = Yup.object().shape({
