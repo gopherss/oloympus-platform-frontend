@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Label, Input, Button, TitlleForm, Span } from '../atoms/index'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -11,8 +11,9 @@ import logo from '../../assets/logo_olympus.png';
 import { InterfaceLogin, SPECIALCHARACTERSREGEX, SOCIALMEDIABUTTONS } from '../../types';
 
 // Firebase Auth
-import { getRedirectResult, signInWithRedirect } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import { auth } from '../../utils/firebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 const validationSchema = Yup.object().shape({
@@ -28,54 +29,63 @@ const validationSchema = Yup.object().shape({
     .matches(SPECIALCHARACTERSREGEX, 'La contraseña debe contener al menos un carácter especial')
 });
 
-
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
+  const [errorFirebase, setErrorFirebase] = useState('');
 
   const { register, handleSubmit, formState: { errors } } = useForm<InterfaceLogin>({
     resolver: yupResolver(validationSchema)
   });
 
-  const onSubmit: SubmitHandler<InterfaceLogin> = (data: InterfaceLogin) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<InterfaceLogin> = async (data: InterfaceLogin) => {
+    const { email, password } = data;
+    console.log({ email, password });
+
+    try {
+      const credentials = await signInWithEmailAndPassword(auth, email, password);
+      console.log(credentials);
+      navigate('/profile');
+    } catch (error: any) {
+
+      const erroOne = error.code === 'auth/wrong-password' ? 'wrong-password' : '';
+      const errorTwo = error.code === 'auth/user-not-found' ? 'user-not-found' : '';
+      const errorFour = error.code === 'auth/too-many-requests' ? 'too-many-requests' : '';
+
+      return setErrorFirebase(erroOne || errorTwo || errorFour);
+    }
   };
 
-  useEffect(() => {
-    const handleRedirectResult = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result) {
-          const { displayName, email, phoneNumber, photoURL, emailVerified, getIdToken } = result.user;
-          const inforUser = {
-            name: displayName,
-            email: email,
-            phone: phoneNumber,
-            photo: photoURL,
-            verified: emailVerified,
-          }
-
-          const token = await getIdToken();
-          localStorage.setItem('userToken', token);
-
-          const tokenStorage = localStorage.getItem('userToken')
-
-          const authenticatedUser = {
-            ...inforUser,
-            tokenStorage
-          }
-
-          console.log(authenticatedUser);
-          navigate('/profile');
+  const handleLogin = async (provider: any) => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      
+      if (result) {
+        const { displayName, email, phoneNumber, photoURL, emailVerified } = result.user;
+        const inforUser = {
+          name: displayName,
+          email: email,
+          phone: phoneNumber,
+          photo: photoURL,
+          verified: emailVerified,
         }
-      } catch (error) {
-        console.error('Error during login: ', error);
-      }
-    };
-    handleRedirectResult();
-  }, []);
 
-  const handleLogin = (provider: any) => {
-    signInWithRedirect(auth, provider);
+        const token = await result.user.getIdToken();
+
+        localStorage.setItem('userToken', token);
+
+        const tokenStorage = localStorage.getItem('userToken')
+
+        const authenticatedUser = {
+          ...inforUser,
+          tokenStorage
+        }
+
+        console.log(authenticatedUser);
+        navigate('/profile'); 
+      }
+    } catch (error: any) {
+      console.error('Error during login: ', error);
+    }
   };
 
   return (
@@ -96,6 +106,8 @@ const LoginPage: React.FC = () => {
               <div className="mt-2">
                 <Input id='email' {...register("email")} placeholder='ejemplo@email.com' />
                 {errors.email && <Span>{errors.email.message}</Span>}
+                {<Span> {errorFirebase === 'user-not-found' ? 'Email Incorrecto': ''} </Span>}
+                {<Span> {errorFirebase === 'too-many-requests' ? 'Demasiados intento consulte al administrador.': ''} </Span>}
               </div>
             </div>
 
@@ -111,6 +123,7 @@ const LoginPage: React.FC = () => {
               <div className="mt-2">
                 <Input id="password" type='password' {...register('password')} placeholder='************' />
                 {errors.password && <Span>{errors.password.message}</Span>}
+                {<Span> {errorFirebase === 'wrong-password' ? 'Contraseña Incorrecta': ''} </Span>}
               </div>
             </div>
             <div>
@@ -128,13 +141,13 @@ const LoginPage: React.FC = () => {
           {/* Buttons Login */}
           <div className="mt-6 flex flex-col space-y-4">
             <p className="text-center text-sm text-gray-500">O continuar con</p>
-            <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+            <div className="flex flex-wrap justify-center sm:justify-start gap-4">
               {SOCIALMEDIABUTTONS.map((button, index) => (
                 <button
                   key={index}
                   type="button"
                   onClick={() => handleLogin(button.provider)}
-                  className="flex justify-center items-center w-full sm:w-auto rounded-md bg-indigo-100 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 mb-2 sm:mb-0"
+                  className="flex justify-center items-center w-full sm:w-auto rounded-md bg-indigo-100 px-3 py-1.5 text-ellipsis font-semibold leading-6 text-gray-900 shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 mb-2 sm:mb-0"
                 >
                   <img
                     className="w-6 h-6 mr-2"

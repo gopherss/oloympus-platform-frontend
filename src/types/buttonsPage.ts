@@ -1,4 +1,4 @@
-import { emailProvider, facebookProvider, googleProvider, twitterProvider } from "../utils/firebaseConfig";
+import {  facebookProvider, googleProvider, twitterProvider } from "../utils/firebaseConfig";
 
 export const SOCIALMEDIABUTTONS = [
     {
@@ -13,12 +13,12 @@ export const SOCIALMEDIABUTTONS = [
         alt: 'Facebook Logo',
         provider: facebookProvider
     },
-    {
-        label: 'Email',
-        src: 'https://www.svgrepo.com/show/452213/gmail.svg',
-        alt: 'Microsoft Logo',
-        provider: emailProvider
-    },
+    // {
+    //     label: 'Email',
+    //     src: 'https://www.svgrepo.com/show/452213/gmail.svg',
+    //     alt: 'Microsoft Logo',
+    //     provider: emailProvider
+    // },
     {
         label: 'Twitter',
         src: 'https://www.svgrepo.com/show/452123/twitter.svg',

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TitlleForm, Label, Input, Button, Span } from '../atoms/index';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,8 @@ import { InterfaceRegister, SPECIALCHARACTERSREGEX, SOCIALMEDIABUTTONS } from '.
 // Firebase Auth
 import { getRedirectResult, signInWithRedirect } from 'firebase/auth';
 import { auth } from '../../utils/firebaseConfig';
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -35,13 +37,28 @@ const validationSchema = Yup.object().shape({
 
 const RegisterPage: React.FC = () => {
     const navigate = useNavigate();
+    const [errorFirebase, setErrorFirebase] = useState('');
 
     const { register, handleSubmit, formState: { errors } } = useForm<InterfaceRegister>({
         resolver: yupResolver(validationSchema)
     });
 
-    const onSubmit: SubmitHandler<InterfaceRegister> = (data: InterfaceRegister) => {
-        console.log(data);
+    const onSubmit: SubmitHandler<InterfaceRegister> = async (data: InterfaceRegister) => {
+        const { email, password } = data;
+        console.log({ email, password });
+
+        try {
+            const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+            console.log(userCredentials);
+            navigate('/profile')
+        } catch (error: any) {
+            const erroOne = error.code === 'auth/wrong-password' ? ('Invalida password') : '';
+            const errorTwo = error.code === 'auth/invalid-email' ? ('Invalida email') : '';
+            const errorThree = error.code === 'auth/email-already-in-use' ? ('Email already in use') : '';
+            const errorFour = error.code ? ('Something went wrong') : '';
+
+            return setErrorFirebase(erroOne || errorTwo || errorThree || errorFour);
+        }
     };
 
 
@@ -127,6 +144,7 @@ const RegisterPage: React.FC = () => {
                                 <div className="mt-1">
                                     <Input id='email' {...register("email")} placeholder='ejemplo@email.com' type='email' />
                                     {errors.email && <Span>{errors.email.message}</Span>}
+                                    {<Span> {errorFirebase} </Span>}
                                 </div>
                             </div>
 
