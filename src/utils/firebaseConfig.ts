@@ -8,13 +8,13 @@ import { getAuth, GoogleAuthProvider, FacebookAuthProvider, EmailAuthProvider, T
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDwwo3GhYHGDn-i_nUHPDEEOHKL0MVVH4U",
-  authDomain: "olympus-web-platform.firebaseapp.com",
-  projectId: "olympus-web-platform",
-  storageBucket: "olympus-web-platform.appspot.com",
-  messagingSenderId: "283910939009",
-  appId: "1:283910939009:web:b9e492dbc1269290f10880",
-  measurementId: "G-5MF9DK9JV8"
+  apiKey: "AIzaSyA0IITF5ln2x1Fy_BvDVLNaRGGATeKmKYI",
+  authDomain: "olympus-platform.firebaseapp.com",
+  projectId: "olympus-platform",
+  storageBucket: "olympus-platform.appspot.com",
+  messagingSenderId: "566841895425",
+  appId: "1:566841895425:web:23d58b0367eb4e04b6ae00",
+  measurementId: "G-RKY82C0VXG"
 };
 
 // Initialize Firebase
