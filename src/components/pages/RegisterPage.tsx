@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { TitlleForm, Label, Input, Button, Span } from '../atoms/index';
 import { Link, useNavigate } from 'react-router-dom';
 
-
 // validación de codigo 
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,7 +12,6 @@ import { InterfaceRegister, SPECIALCHARACTERSREGEX, SOCIALMEDIABUTTONS } from '.
 import { signInWithPopup } from 'firebase/auth';
 import { auth } from '../../utils/firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -67,13 +65,11 @@ const RegisterPage: React.FC = () => {
           const result = await signInWithPopup(auth, provider);
           
           if (result) {
-            const { displayName, email, phoneNumber, photoURL, emailVerified } = result.user;
+            const { displayName, email, photoURL } = result.user;
             const inforUser = {
               name: displayName,
               email: email,
-              phone: phoneNumber,
               photo: photoURL,
-              verified: emailVerified,
             }
     
             const token = await result.user.getIdToken();
