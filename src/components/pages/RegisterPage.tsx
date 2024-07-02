@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TitlleForm, Label, Input, Button, Span } from '../atoms/index';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import { InterfaceRegister, SPECIALCHARACTERSREGEX, SOCIALMEDIABUTTONS } from '../../types';
 
 // Firebase Auth
-import { getRedirectResult, signInWithRedirect } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import { auth } from '../../utils/firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
@@ -62,44 +62,37 @@ const RegisterPage: React.FC = () => {
     };
 
 
-    useEffect(() => {
-        const handleRedirectResult = async () => {
-          try {
-            const result = await getRedirectResult(auth);
-    
-            if (result) {
-                const { displayName, email, phoneNumber, photoURL, emailVerified, getIdToken } = result.user;
-                const inforUser = {
-                  name: displayName,
-                  email: email,
-                  phone: phoneNumber,
-                  photo: photoURL,
-                  verified: emailVerified,
-                }
-      
-                const token = await getIdToken();
-                localStorage.setItem('userToken', token);
-      
-                const tokenStorage = localStorage.getItem('userToken')
-      
-                const authenticatedUser = {
-                  ...inforUser,
-                  tokenStorage
-                }
-      
-                console.log(authenticatedUser);
-              navigate('/profile');
+    const handleLogin = async (provider: any) => {
+        try {
+          const result = await signInWithPopup(auth, provider);
+          
+          if (result) {
+            const { displayName, email, phoneNumber, photoURL, emailVerified } = result.user;
+            const inforUser = {
+              name: displayName,
+              email: email,
+              phone: phoneNumber,
+              photo: photoURL,
+              verified: emailVerified,
             }
     
-          } catch (error) {
-            console.error('Error during login: ', error);
-          }
-        };
-        handleRedirectResult();
-      }, [])
+            const token = await result.user.getIdToken();
     
-      const handleLogin = (provider: any) => {
-        signInWithRedirect(auth, provider);
+            localStorage.setItem('userToken', token);
+    
+            const tokenStorage = localStorage.getItem('userToken')
+    
+            const authenticatedUser = {
+              ...inforUser,
+              tokenStorage
+            }
+    
+            console.log(authenticatedUser);
+            navigate('/profile'); 
+          }
+        } catch (error: any) {
+          console.error('Error during register: ', error);
+        }
       };
 
 
