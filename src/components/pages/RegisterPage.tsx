@@ -52,10 +52,10 @@ const RegisterPage: React.FC = () => {
             console.log(userCredentials);
             navigate('/profile')
         } catch (error: any) {
-            const erroOne = error.code === 'auth/wrong-password' ? ('Invalida password') : '';
-            const errorTwo = error.code === 'auth/invalid-email' ? ('Invalida email') : '';
-            const errorThree = error.code === 'auth/email-already-in-use' ? ('Email already in use') : '';
-            const errorFour = error.code ? ('Something went wrong') : '';
+            const erroOne = error.code === 'auth/wrong-password' ? 'Invalida password' : '';
+            const errorTwo = error.code === 'auth/invalid-email' ? 'Invalida email' : '';
+            const errorThree = error.code === 'auth/email-already-in-use' ? 'Email already in use' : '';
+            const errorFour = error.code ? 'Something went wrong' : '';
 
             return setErrorFirebase(erroOne || errorTwo || errorThree || errorFour);
         }
