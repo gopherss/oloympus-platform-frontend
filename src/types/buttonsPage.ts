@@ -1,4 +1,4 @@
-import {  facebookProvider, googleProvider, twitterProvider } from "../utils/firebaseConfig";
+import { facebookProvider, googleProvider, twitterProvider } from "../utils/firebaseConfig";
 
 export const SOCIALMEDIABUTTONS = [
     {
@@ -38,7 +38,54 @@ export const MENUITEMS = [
 
 
 export const NAVIGATION = [
+    { name: 'Olympus', href: '/olympus', current: false },
+    { name: 'Comunidades', href: '/community', current: false },
+    { name: 'Personas', href: '/people', current: false },
+    { name: 'Buscar', href: '/search', current: false },
+    { name: 'Premium', href: '/premium', current: false },
     { name: 'Contacto', href: '/contact', current: false },
-    { name: 'Planes', href: '/plans', current: false },
-    { name: 'Opciones', href: '/options', current: false },
+];
+
+
+export const LINKS_HOME = [
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/395714/email-message-mail-envelope.svg",
+        alt: "img email"
+    },
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/217753/github.svg",
+        alt: "img github"
+    },
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/475636/bankin-color.svg",
+        alt: "img bankin"
+    },
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/475678/shopify-color.svg",
+        alt: "img shopify"
+    },
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/475643/dribbble-color.svg",
+        alt: "img dribbble"
+    },
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/299422/twitter.svg",
+        alt: "img twitter"
+    },
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/475661/linkedin-color.svg",
+        alt: "img linkedin"
+    },
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/475647/facebook-color.svg",
+        alt: "img facebook"
+    }
 ];
