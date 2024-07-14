@@ -89,3 +89,27 @@ export const LINKS_HOME = [
         alt: "img facebook"
     }
 ];
+
+
+export const LINKS_COMUNITIES = [
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/448224/facebook.svg",
+        alt: "img email"
+    },
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/10337/whatsapp.svg",
+        alt: "img github"
+    },
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/303292/telegram-logo.svg",
+        alt: "img bankin"
+    },
+    {
+        href: "#_",
+        imgSrc: "https://www.svgrepo.com/show/475689/twitter-color.svg",
+        alt: "img shopify"
+    },
+];

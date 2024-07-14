@@ -1,7 +1,7 @@
 import React from 'react';
-import lexington from '../../assets/images/lexington.png';
 import Footer from '../organisms/Footer';
-import { LINKS_HOME } from '../../types/';
+import { LINKS_COMUNITIES, LINKS_HOME } from '../../types/';
+import { Link } from 'react-router-dom';
 
 
 const HomePage: React.FC = () => {
@@ -48,16 +48,31 @@ const HomePage: React.FC = () => {
                 aquí nadie sale sin chisme 🫦!
               </p>
               <p
-                className="mt-4 text-sm text-zinc-500 dark:text-zinc-400 font-light lg:text-xl"
+                className="mt-4 text-sm text-zinc-500 dark:text-zinc-400 font-light lg:text-xl text-justify"
               >
                 I'm a digital designer, developer, and surfer from Malibu. In the
                 digital world, I craft interfaces and dive into coding intricacies.
-                <br />
-                <br />
                 Beyond screens, I find solace and joy riding waves along Malibu's
                 shores. My life blends tech and nature, coding sessions, and catching
                 waves.
               </p>
+
+              <div className="grid mt-4 grid-cols-4 md:grid-cols-8 lg:grid-cols-4 gap-y-4 gap-4 justify-center w-full">
+                {LINKS_COMUNITIES.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="flex items-center justify-center aspect-square shadow-xl dark:shadow-thick hover:bg-zinc-950 dark:hover:bg-primary ring-1 dark:ring-white/10  dark:bg-tertiary rounded-lg hover: dark:hover:ring-white/20 duration-300 group transition-all h-12 w-12"
+                  >
+                    <img
+                      className="h-6 w-6 group-hover:scale-125 duration-300  dark:text-white group-hover :dark:text-white/50"
+                      src={link.imgSrc}
+                      alt={link.alt}
+                    />
+                  </a>
+                ))}
+              </div>
+
             </div>
 
             <div
@@ -88,32 +103,58 @@ const HomePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="ring-1 lg:row-span-2 flex flex-col justify-between group hover:ring-primary/10 dark:hover:ring-white/20 duration-300 h-full dark:ring-white/10  lg:row-start-2 md:grid-cols-2 md:grid lg:gap-0 md:items-center md:gap-12 lg:grid-cols-none lg:col-start-2 lg:col-span-2 rounded-3xl p-8 dark:bg-zinc-900 shadow-xl dark:shadow-thick">
+
+
+            <div className="ring-1 lg:row-span-2 flex flex-col justify-between group hover:ring-primary/10 dark:hover:ring-white/20 duration-300 h-full dark:ring-white/10 lg:row-start-2 md:grid-cols-2 md:grid lg:gap-0 md:items-center md:gap-12 lg:grid-cols-none lg:col-start-2 lg:col-span-2 rounded-3xl p-8 dark:bg-zinc-900 shadow-xl dark:shadow-thick">
               <div className="mt-8">
                 <img
-                  src={lexington}
+                  src='https://s3-alpha-sig.figma.com/img/c702/5e10/88e1df134c6e36ebadc22d4c06bb73b9?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bU-ZPIPj3juTyUVaKh55ZTuzsKKWVHyvNIplO6woovtI0CzA5OLZE3GFQxEfCU9qqt8iXP0YeVqRHyPBKiZ-hVuDiZXE50k912MyYgOGSSb3YXC68ozs-yl1JHYKNoefOX92pCG2IycNBJJJBTSspAwRt~~1QBkAf-G4h-FuBaBBg-TtK77kMwCLGwO6K4nRsf9wwnxw1kOttOMd1D5mw1uq2YFMYuopiPA7GjT6B7lU4AW8LrS424uAYfmjX8m1aOlPDRAz473IjDfkuRJGYiwFN2StwfxIC7QsSbwsR1X5n6rCVwz2JM5cKSUWXQTx3NxmdmIePWKb1sojEJIO1Q__'
                   className="rounded-2xl group-hover:ring-white/20 duration-300 invert dark:invert-0 ring-1 ring-white/10 object-cover"
                   alt=""
                 />
               </div>
               <div>
-                <p
-                  className="md:text-2xl text-center dark:text-amber-500"
-                >
-                  Comunidades, empresas y personas
-                  acorde a tus necesidades, intereses y sentimientos
+                <p className="md:text-2xl text-center dark:text-amber-500">
+                  Comunidades, empresas y personas acorde a tus necesidades, intereses y sentimientos
                 </p>
-                <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400 text-justify">
                   Design & development subscriptions for startups.
-                  <br />
-                  <br />
+                  Somos una plataforma libre, creada para personas creativas, influenciadoras y
+                  capaces de reunir a muchas personas, compartiendo su estilo de vida, formas
+                  de pensar y sus experiencias.
+                  Design & development subscriptions for startups.
+                  Somos una plataforma libre, creada para personas creativas, influenciadoras y
+                  capaces de reunir a muchas personas, compartiendo su estilo de vida, formas
+                  de pensar y sus experiencias.
+                  Design & development subscriptions for startups.
                   Somos una plataforma libre, creada para personas creativas, influenciadoras y
                   capaces de reunir a muchas personas, compartiendo su estilo de vida, formas
                   de pensar y sus experiencias.
                 </p>
-              </div>
 
+                <div className="grid grid-cols-2 gap-4 p-4 w-full max-w-lg justify-self-end ml-auto">
+                  <button className="border-0 bg-gradient-to-r from-purple-700 via-blue-500 to-cyan-400 rounded-lg text-white text-lg p-1 cursor-pointer transition duration-300 transform active:scale-90 hover:bg-gradient-to-r hover:from-blue-500 hover:via-blue-500 hover:to-blue-600">
+                    <Link to="/login" className="flex items-center justify-center px-6 py-3 rounded-md transition duration-300 hover:bg-transparent">
+                      Empezar
+                    </Link>
+                  </button>
+                  <button className="ml-auto">
+                    <Link to="/community" className='text-white hover:text-blue-700 flex items-center space-x-1 transition-colors duration-300'>
+                      Saber Más
+                      <img src="https://www.svgrepo.com/show/418140/arrow-right-3.svg" alt="icon arrow" className="h-5 w-5" />
+                    </Link>
+                  </button>
+                  <button className="col-span-2 border-0 bg-gradient-to-r from-purple-700 via-blue-500 to-cyan-400 rounded-lg text-white  text-lg p-1 cursor-pointer transition duration-300 transform active:scale-90 hover:bg-gradient-to-r hover:from-blue-500 hover:via-blue-500 hover:to-blue-600">
+                    <Link to="/register" className="flex items-center justify-center px-6 py-3 rounded-md transition duration-300 hover:bg-transparent text-center">
+                      Registrarse
+                    </Link>
+                  </button>
+                </div>
+
+              </div>
             </div>
+
+
 
             <div
               className="ring-1 dark:ring-white/10   flex flex-col justify-between items-center rounded-3xl shadow-xl dark:shadow-thick p-8 dark:bg-zinc-900 overflow-hidden text-center lg:text-left"
@@ -142,58 +183,18 @@ const HomePage: React.FC = () => {
 
 
             <div className="ring-1 dark:ring-white/10  flex flex-col p-8 h-full justify-center items-center rounded-3xl overflow-hidden relative lg:col-span-2 lg:row-start-4  dark:bg-zinc-900 shadow-xl dark:shadow-thick">
-              <div className="relative p-8 text-center w-full">
-                <p
-                  className="text-xl tracking-tight font-medium  dark:text-white md:text-6xl"
-                >
-                  Subscribe <span className="lg:block">to my newsletter</span>
+            <div className="mt-8">
+                <p className="ext-xl tracking-tight font-medium  dark:text-white md:text-6xl mt-6">
+                  Comunidad
                 </p>
-                <form className="mt-6 sm:flex w-full lg:max-w-sm mx-auto">
-                  <label htmlFor="email-address" className="sr-only">Email address</label>
-                  <input
-                    type="email"
-                    name="email-address"
-                    id="email-address"
-                    required
-                    className="block w-full h-12 px-4 py-2 text-sm text-zinc-500 bg-zinc-100 dark:bg-zinc-800 ring-1 dark:ring-white/10  rounded-lg appearance-none focus:ring-white/20 placeholder-zinc-400 focus:border-zinc-300 focus:bg-primary focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Enter your email"
-                  />
-                  <div className="mt-4 sm:ml-2 sm:mt-0 sm:flex-shrink-0">
-                    <button
-                      type="submit"
-                      className="text-sm py-2 w-full px-4 h-12 font-semibold focus:ring-2 rounded-lg  dark:bg-white dark:text-zinc-950 dark:hover:text-white hover: dark:hover:bg-white/5 hover:bg-primary/10 text-white flex duration-200 focus:ring-offset-2 focus:ring-inline-flex items-center justify-between"
-                    >Subscribe</button
-                    >
-                  </div>
-                </form>
               </div>
             </div>
 
             <div className="ring-1 dark:ring-white/10  shadow-xl dark:shadow-thick rounded-3xl p-8 lg:row-start-4 h-full flex flex-col justify-between  dark:bg-zinc-900">
-              <p className="text-xl tracking-tight font-medium  dark:text-white md:text-5xl">
-                Testimonials
-              </p>
-              <div className="md:grid md:grid-cols-2 gap-6 lg:grid-cols-1">
-                <div className="mt-4">
-                  <p className="text-sm text-pink-500 dark:text-pink-400">
-                    "Big fan of your themes. They're well-organized, look clean, and
-                    are fast."
-                  </p>
-                  <p className="text-xs mt-2 text-zinc-500">
-                    <span className="block text-xs">Kevin Focke</span>
-                    <span className="block text-xs"> Developer</span>
-                  </p>
-                </div>
-                <div className="mt-4">
-                  <p className="text-sm text-orange-500 dark:text-orange-300">
-                    "Amazing resource using @astrodotbuild and @tailwindcss! I got it
-                    a week ago and have found the contents really useful. 5/5
-                  </p>
-                  <p className="text-xs mt-2 text-zinc-500">
-                    <span className="block text-xs">Alonso</span>
-                    <span className="block text-xs"> Entrepreneur</span>
-                  </p>
-                </div>
+            <div className="mt-8">
+                <p className="ext-xl tracking-tight font-medium  dark:text-white md:text-6xl mt-6">
+                  Anuncio
+                </p>
               </div>
             </div>
 
@@ -231,6 +232,23 @@ const HomePage: React.FC = () => {
                   capaces de reunir a muchas personas, compartiendo su estilo de vida, formas
                   de pensar y sus experiencias.
                 </p>
+
+                <div className="grid mt-4 grid-cols-4 md:grid-cols-8 lg:grid-cols-4 gap-y-4 gap-4 justify-center w-full">
+                {LINKS_COMUNITIES.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="flex items-center justify-center aspect-square shadow-xl dark:shadow-thick hover:bg-zinc-950 dark:hover:bg-primary ring-1 dark:ring-white/10  dark:bg-tertiary rounded-lg hover: dark:hover:ring-white/20 duration-300 group transition-all h-12 w-12"
+                  >
+                    <img
+                      className="h-6 w-6 group-hover:scale-125 duration-300  dark:text-white group-hover :dark:text-white/50"
+                      src={link.imgSrc}
+                      alt={link.alt}
+                    />
+                  </a>
+                ))}
+              </div>
+
               </div>
             </div>
 
@@ -257,6 +275,21 @@ const HomePage: React.FC = () => {
                   capaces de reunir a muchas personas, compartiendo su estilo de vida, formas
                   de pensar y sus experiencias.
                 </p>
+                <div className="grid mt-4 grid-cols-4 md:grid-cols-8 lg:grid-cols-4 gap-y-4 gap-4 justify-center w-full">
+                {LINKS_COMUNITIES.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="flex items-center justify-center aspect-square shadow-xl dark:shadow-thick hover:bg-zinc-950 dark:hover:bg-primary ring-1 dark:ring-white/10  dark:bg-tertiary rounded-lg hover: dark:hover:ring-white/20 duration-300 group transition-all h-12 w-12"
+                  >
+                    <img
+                      className="h-6 w-6 group-hover:scale-125 duration-300  dark:text-white group-hover :dark:text-white/50"
+                      src={link.imgSrc}
+                      alt={link.alt}
+                    />
+                  </a>
+                ))}
+              </div>
               </div>
             </div>
 
@@ -283,6 +316,21 @@ const HomePage: React.FC = () => {
                   capaces de reunir a muchas personas, compartiendo su estilo de vida, formas
                   de pensar y sus experiencias.
                 </p>
+                <div className="grid mt-4 grid-cols-4 md:grid-cols-8 lg:grid-cols-4 gap-y-4 gap-4 justify-center w-full">
+                {LINKS_COMUNITIES.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="flex items-center justify-center aspect-square shadow-xl dark:shadow-thick hover:bg-zinc-950 dark:hover:bg-primary ring-1 dark:ring-white/10  dark:bg-tertiary rounded-lg hover: dark:hover:ring-white/20 duration-300 group transition-all h-12 w-12"
+                  >
+                    <img
+                      className="h-6 w-6 group-hover:scale-125 duration-300  dark:text-white group-hover :dark:text-white/50"
+                      src={link.imgSrc}
+                      alt={link.alt}
+                    />
+                  </a>
+                ))}
+              </div>
               </div>
             </div>
 
@@ -309,12 +357,36 @@ const HomePage: React.FC = () => {
                   capaces de reunir a muchas personas, compartiendo su estilo de vida, formas
                   de pensar y sus experiencias.
                 </p>
+                <div className="grid mt-4 grid-cols-4 md:grid-cols-8 lg:grid-cols-4 gap-y-4 gap-4 justify-center w-full">
+                  {LINKS_COMUNITIES.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.href}
+                      className="flex items-center justify-center aspect-square shadow-xl dark:shadow-thick hover:bg-zinc-950 dark:hover:bg-primary ring-1 dark:ring-white/10  dark:bg-tertiary rounded-lg hover: dark:hover:ring-white/20 duration-300 group transition-all h-12 w-12"
+                    >
+                      <img
+                        className="h-6 w-6 group-hover:scale-125 duration-300  dark:text-white group-hover :dark:text-white/50"
+                        src={link.imgSrc}
+                        alt={link.alt}
+                      />
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
 
           </div>
         </div>
       </section>
+
+
+      <div className="flex items-center justify-center  mt-10 mb-10">
+        <button className="border-0 bg-gradient-to-r from-purple-700 via-blue-500 to-cyan-400 rounded-lg text-white flex text-lg p-1 cursor-pointer transition duration-300 transform active:scale-90">
+          <Link to="/community" className="bg-gray-950 px-6 py-4 rounded-md transition duration-300 hover:bg-transparent">
+            Buscar Más
+          </Link>
+        </button>
+      </div>
 
       <Footer />
     </>
